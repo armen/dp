@@ -5,6 +5,13 @@ import (
 	"github.com/armen/irdp/job"
 )
 
+func (th *tfmHandler) init() {
+	th.top = 0
+	th.bottom = 0
+	th.handling = false
+	th.buffer = make([]*job.Job, th.bound)
+}
+
 // Submits a job to be processed.
 func (th *tfmHandler) Submit(j *job.Job) {
 	th.mux <- func() {

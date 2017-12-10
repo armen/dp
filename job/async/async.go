@@ -5,6 +5,10 @@ import (
 	"github.com/armen/irdp/job"
 )
 
+func (jh *jobHandler) init() {
+	jh.buffer = make([]*job.Job, 0)
+}
+
 // Submits a job to be processed.
 func (jh *jobHandler) Submit(j *job.Job) {
 	jh.mux <- func() {

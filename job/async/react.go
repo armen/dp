@@ -17,7 +17,6 @@ type jobHandler struct {
 func New() *jobHandler {
 	return &jobHandler{
 		process: func(*job.Job) {},
-		buffer:  make([]*job.Job, 0),
 		mux:     make(chan func()),
 	}
 }
@@ -34,6 +33,8 @@ func (jh *jobHandler) Process(f func(*job.Job)) {
 
 // React mutually executes events.
 func (jh *jobHandler) React() {
+	jh.init()
+
 	for f := range jh.mux {
 		f()
 

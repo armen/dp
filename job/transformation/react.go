@@ -23,15 +23,9 @@ type tfmHandler struct {
 // Instantiates a new asynchronous job handler.
 func New(jh job.Handler, bound int) *tfmHandler {
 	th := &tfmHandler{
-		jh: jh,
-
-		buffer:   make([]*job.Job, bound),
-		bound:    bound,
-		top:      0,
-		bottom:   0,
-		handling: false,
-
-		mux: make(chan func()),
+		jh:    jh,
+		bound: bound,
+		mux:   make(chan func()),
 	}
 
 	jh.Confirm(th.jhConfirm)
@@ -56,6 +50,7 @@ func (th *tfmHandler) Process(f func(*job.Job)) {
 
 // React mutually executes events.
 func (th *tfmHandler) React() {
+	th.init()
 	go th.jh.React()
 
 	for f := range th.mux {
