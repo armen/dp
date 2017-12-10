@@ -2,7 +2,7 @@
 package async
 
 import (
-	"irdp/job"
+	"github.com/armen/irdp/job"
 )
 
 // Submits a job to be processed.

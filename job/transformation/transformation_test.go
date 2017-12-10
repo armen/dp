@@ -1,10 +1,11 @@
 package transformation_test
 
 import (
-	"irdp/job"
-	"irdp/job/sync"
-	"irdp/job/transformation"
 	"testing"
+
+	"github.com/armen/irdp/job"
+	"github.com/armen/irdp/job/sync"
+	"github.com/armen/irdp/job/transformation"
 )
 
 func TestGuaranteedResponse(t *testing.T) {

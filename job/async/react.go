@@ -1,7 +1,7 @@
 package async
 
 import (
-	"irdp/job"
+	"github.com/armen/irdp/job"
 )
 
 type jobHandler struct {

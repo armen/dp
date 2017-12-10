@@ -1,7 +1,7 @@
 package sync
 
 import (
-	"irdp/job"
+	"github.com/armen/irdp/job"
 )
 
 type jobHandler struct {

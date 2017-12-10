@@ -1,9 +1,10 @@
 package sync_test
 
 import (
-	"irdp/job"
-	"irdp/job/sync"
 	"testing"
+
+	"github.com/armen/irdp/job"
+	"github.com/armen/irdp/job/sync"
 )
 
 func TestGuaranteedResponse(t *testing.T) {

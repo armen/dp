@@ -1,11 +1,10 @@
 package job
 
 import (
-	"irdp"
+	"github.com/armen/irdp"
 )
 
 // Interface and properties of a job transformation and processing abstraction.
-//
 // Properties:
 // 		TH1: Guarnteed response
 // 			- Every submitted job is eventually confirmed or its transformation fails
