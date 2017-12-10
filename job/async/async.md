@@ -1,10 +1,9 @@
-**Algorithm 1.2**: Asynchronous Job Handler
-
-**Implements**:
-
-   JobHandler, **instance** jh.
-
 ```
+Algorithm 1.2: Asynchronous Job Handler
+
+Implements:
+   JobHandler, instance jh.
+
 upon event < jh, Init > do
    buffer := ∅ ;
 
