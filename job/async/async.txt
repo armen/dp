@@ -1,4 +1,3 @@
-```
 Algorithm 1.2: Asynchronous Job Handler
 
 Implements:
@@ -15,4 +14,3 @@ upon buffer != ∅ do
    job := selectjob (buffer);
    process(job);
    buffer := buffer \ { job } ;
-```
