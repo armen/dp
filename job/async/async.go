@@ -14,7 +14,13 @@ func (jh *jobHandler) Submit(j *job.Job) {
 	}
 }
 
-func (jh *jobHandler) notEmptyBuffer() {
+func (jh *jobHandler) existsJob() {
+	if len(jh.buffer) > 0 {
+		go jh.handleJob()
+	}
+}
+
+func (jh *jobHandler) handleJob() {
 	jh.mux <- func() {
 		// Select a job
 		j := jh.buffer[0]

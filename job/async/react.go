@@ -37,8 +37,6 @@ func (jh *jobHandler) React() {
 	for f := range jh.mux {
 		f()
 
-		if len(jh.buffer) > 0 {
-			go jh.notEmptyBuffer()
-		}
+		jh.existsJob()
 	}
 }

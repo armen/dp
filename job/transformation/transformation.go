@@ -19,6 +19,12 @@ func (th *tfmHandler) Submit(j *job.Job) {
 	}
 }
 
+func (th *tfmHandler) existsJob() {
+	if th.bottom < th.top && th.handling == false {
+		go th.handleJob()
+	}
+}
+
 func (th *tfmHandler) handleJob() {
 	th.mux <- func() {
 		j := th.buffer[th.bottom%th.bound]

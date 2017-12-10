@@ -61,8 +61,6 @@ func (th *tfmHandler) React() {
 	for f := range th.mux {
 		f()
 
-		if th.bottom < th.top && th.handling == false {
-			go th.handleJob()
-		}
+		th.existsJob()
 	}
 }
