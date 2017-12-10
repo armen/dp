@@ -5,11 +5,12 @@ import (
 )
 
 // Interface and properties of a job transformation and processing abstraction.
+//
 // Properties:
-// 		TH1: Guarnteed response
-// 			- Every submitted job is eventually confirmed or its transformation fails
-//      TH2: Soundness
-// 			- A submitted job whose transformation fails is not processed
+// 	TH1: Guarnteed response
+// 		- Every submitted job is eventually confirmed or its transformation fails
+// 	TH2: Soundness
+// 		- A submitted job whose transformation fails is not processed
 //
 type TransformationHandler interface {
 	Submit(*Job)        // Requests a job for transformation and for processing

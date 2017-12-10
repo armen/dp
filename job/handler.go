@@ -5,9 +5,10 @@ import (
 )
 
 // Interface and properties of a job handler.
+//
 // Properties:
-// 		JH1: Guarnteed response
-//      	- Every submitted job is eventually confirmed
+// 	JH1: Guarnteed response
+// 		- Every submitted job is eventually confirmed
 //
 type Handler interface {
 	Submit(*Job)        // Requests a job to be processed
