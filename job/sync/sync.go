@@ -13,13 +13,3 @@ func (jh *jobHandler) Submit(j *job.Job) {
 		go jh.confirm(j)
 	}
 }
-
-// Confirm registers the confirm handler.
-func (jh *jobHandler) Confirm(f func(*job.Job)) {
-	jh.confirm = f
-}
-
-// Process registers the process handler.
-func (jh *jobHandler) Process(f func(*job.Job)) {
-	jh.process = f
-}

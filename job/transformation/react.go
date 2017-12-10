@@ -39,6 +39,21 @@ func New(jh job.Handler, bound int) *tfmHandler {
 	return th
 }
 
+// Confirm registers the confirm handler.
+func (th *tfmHandler) Confirm(f func(*job.Job)) {
+	th.confirm = f
+}
+
+// Error registers the error handler.
+func (th *tfmHandler) Error(f func(*job.Job)) {
+	th.error = f
+}
+
+// Process registers the process handler.
+func (th *tfmHandler) Process(f func(*job.Job)) {
+	th.jh.Process(f)
+}
+
 // React mutually executes events.
 func (th *tfmHandler) React() {
 	go th.jh.React()

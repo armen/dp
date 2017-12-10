@@ -33,18 +33,3 @@ func (th *tfmHandler) jhConfirm(j *job.Job) {
 		th.handling = false
 	}
 }
-
-// Confirm registers the confirm handler.
-func (th *tfmHandler) Confirm(f func(*job.Job)) {
-	th.confirm = f
-}
-
-// Error registers the error handler.
-func (th *tfmHandler) Error(f func(*job.Job)) {
-	th.error = f
-}
-
-// Process registers the process handler.
-func (th *tfmHandler) Process(f func(*job.Job)) {
-	th.jh.Process(f)
-}
