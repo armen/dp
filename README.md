@@ -1,4 +1,4 @@
-# irdp
+# irdp [![GoDoc](https://godoc.org/github.com/armen/irdp?status.png)](https://godoc.org/github.com/armen/irdp) [![Build Status](https://travis-ci.org/armen/irdp.svg?branch=master)](https://travis-ci.org/armen/irdp)
 
 <img width="165" src="http://www.distributedprogramming.net/images/cover-5.png" align="right">
 
