@@ -4,8 +4,8 @@
 
    JobHandler, **instance** jh.
 
-**upon event** < jh, Submit | job > **do**
-
+```
+upon event < jh, Submit | job > do
    process(job);
-
-   **trigger** < jh, Confirm | job >;
+   trigger < jh, Process | job >;
+```
