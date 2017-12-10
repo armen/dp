@@ -2,22 +2,22 @@
 
 **Implements**:
 
-	JobHandler, **instance** jh.
+   JobHandler, **instance** jh.
 
-**upon event** ^C jh, Init ^D do
+**upon event** < jh, Init > do
 
-	buffer := ∅ ;
+   buffer := ∅ ;
 
-**upon event** ^C jh, Submit | job ^D do
+**upon event** < jh, Submit | job > do
 
-	buffer := buffer ∪ { job } ;
+   buffer := buffer ∪ { job } ;
 
-	**trigger** ^C jh, Confirm | job ^D ;
+   **trigger** < jh, Confirm | job > ;
 
-**upon** buffer ^G = ∅ do
+**upon** buffer != ∅ do
 
-	job := selectjob (buffer);
+   job := selectjob (buffer);
 
-	process(job);
+   process(job);
 
-	buffer := buffer \ { job } ;
+   buffer := buffer \ { job } ;

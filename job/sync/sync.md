@@ -2,10 +2,10 @@
 
 **Implements**:
 
-	JobHandler, **instance** jh.
+   JobHandler, **instance** jh.
 
 **upon event** < jh, Submit | job > **do**
 
-	process(job);
+   process(job);
 
-	**trigger** < jh, Confirm | job >;
+   **trigger** < jh, Confirm | job >;
