@@ -3,9 +3,9 @@ package transformation_test
 import (
 	"testing"
 
-	"github.com/armen/irdp/job"
-	"github.com/armen/irdp/job/sync"
-	"github.com/armen/irdp/job/transformation"
+	"github.com/armen/dp/job"
+	"github.com/armen/dp/job/sync"
+	"github.com/armen/dp/job/transformation"
 )
 
 func TestGuaranteedResponse(t *testing.T) {

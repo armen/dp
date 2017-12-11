@@ -1,7 +1,7 @@
 package transformation
 
 import (
-	"github.com/armen/irdp/job"
+	"github.com/armen/dp/job"
 )
 
 type tfmHandler struct {

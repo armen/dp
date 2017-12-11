@@ -3,8 +3,8 @@ package async_test
 import (
 	"testing"
 
-	"github.com/armen/irdp/job"
-	"github.com/armen/irdp/job/async"
+	"github.com/armen/dp/job"
+	"github.com/armen/dp/job/async"
 )
 
 func TestGuaranteedResponse(t *testing.T) {

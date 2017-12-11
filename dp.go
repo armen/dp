@@ -1,6 +1,6 @@
-// Package irdp is an implementation of distributed programming abstractions in
+// Package dp is an implementation of distributed programming abstractions in
 // go
-package irdp
+package dp
 
 // Reactor is the event loop which will guarantee mutually exclusiive execution
 // of the events.

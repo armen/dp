@@ -1,7 +1,7 @@
 package job
 
 import (
-	"github.com/armen/irdp"
+	"github.com/armen/dp"
 )
 
 // Interface and properties of a job handler.
@@ -15,5 +15,5 @@ type Handler interface {
 	Confirm(func(*Job)) // Confirms that the given job has been (or will be) processed
 	Process(func(*Job)) // Processes a job
 
-	irdp.Reactor
+	dp.Reactor
 }
