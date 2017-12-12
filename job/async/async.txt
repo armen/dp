@@ -11,6 +11,6 @@ upon event < jh, Submit | job > do
    trigger < jh, Confirm | job > ;
 
 upon buffer != ∅ do
-   job := selectjob (buffer);
+   job := selectjob(buffer);
    process(job);
    buffer := buffer \ { job } ;
