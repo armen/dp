@@ -2,6 +2,6 @@ package job
 
 // Job represents a job.
 type Job struct {
-	Id      uint64
+	ID      uint64
 	Payload []byte
 }

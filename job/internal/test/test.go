@@ -14,11 +14,11 @@ func GuaranteedResponseTest(jh job.Handler, t *testing.T) {
 	})
 	go jh.React()
 
-	jh.Submit(&job.Job{Id: 1, Payload: []byte("payload")})
+	jh.Submit(&job.Job{ID: 1, Payload: []byte("payload")})
 
 	select {
 	case j := <-c:
-		if j.Id != 1 || string(j.Payload) != "payload" {
+		if j.ID != 1 || string(j.Payload) != "payload" {
 			t.Error("The confirmed job is not the submitted job")
 		}
 	case <-time.After(1 * time.Millisecond):
@@ -35,11 +35,11 @@ func ProcessTest(jh job.Handler, t *testing.T) {
 	jh.Confirm(func(*job.Job) {})
 	go jh.React()
 
-	jh.Submit(&job.Job{Id: 1, Payload: []byte("payload")})
+	jh.Submit(&job.Job{ID: 1, Payload: []byte("payload")})
 
 	select {
 	case j := <-p:
-		if j.Id != 1 || string(j.Payload) != "payload" {
+		if j.ID != 1 || string(j.Payload) != "payload" {
 			t.Error("The processed job is not the submitted job")
 		}
 	case <-time.After(1 * time.Millisecond):
@@ -65,16 +65,16 @@ func FailedSecondResponse(jh job.Handler, th job.TransformationHandler, t *testi
 	})
 	go th.React()
 
-	th.Submit(&job.Job{Id: 1, Payload: []byte("payload 1")})
+	th.Submit(&job.Job{ID: 1, Payload: []byte("payload 1")})
 	// Wait until the first submission started processing then submit two
 	// more jobs, the latter should not be processed
 	<-processing
-	th.Submit(&job.Job{Id: 2, Payload: []byte("payload 2")})
-	th.Submit(&job.Job{Id: 3, Payload: []byte("payload 3")})
+	th.Submit(&job.Job{ID: 2, Payload: []byte("payload 2")})
+	th.Submit(&job.Job{ID: 3, Payload: []byte("payload 3")})
 
 	select {
 	case j := <-c:
-		if j.Id != 3 || string(j.Payload) != "payload 3" {
+		if j.ID != 3 || string(j.Payload) != "payload 3" {
 			t.Error("The failed job is not the submitted job")
 		}
 	case <-time.After(1 * time.Millisecond):
