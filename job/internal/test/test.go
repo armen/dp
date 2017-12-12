@@ -7,6 +7,7 @@ import (
 	"github.com/armen/dp/job"
 )
 
+// GuaranteedResponseTest tests GuaranteedResponse property.
 func GuaranteedResponseTest(jh job.Handler, t *testing.T) {
 	var c = make(chan *job.Job)
 	jh.Confirm(func(j *job.Job) {
@@ -26,6 +27,7 @@ func GuaranteedResponseTest(jh job.Handler, t *testing.T) {
 	}
 }
 
+// ProcessTest tests if the job is processed.
 func ProcessTest(jh job.Handler, t *testing.T) {
 	var p = make(chan *job.Job)
 	jh.Process(func(j *job.Job) {
@@ -47,7 +49,8 @@ func ProcessTest(jh job.Handler, t *testing.T) {
 	}
 }
 
-func FailedSecondResponse(jh job.Handler, th job.TransformationHandler, t *testing.T) {
+// FailedThirdResponseTest tests job-transformation.
+func FailedThirdResponseTest(jh job.Handler, th job.TransformationHandler, t *testing.T) {
 	var c = make(chan *job.Job)
 	var processing = make(chan struct{})
 	var wait = make(chan struct{})

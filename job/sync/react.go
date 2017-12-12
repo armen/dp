@@ -4,6 +4,7 @@ import (
 	"github.com/armen/dp/job"
 )
 
+// JobHandler stores the state of a synchronous job handler.
 type JobHandler struct {
 	confirm func(*job.Job) // Confirm handler
 	process func(*job.Job) // Process handler, to process a job
@@ -12,7 +13,7 @@ type JobHandler struct {
 	mux chan func()
 }
 
-// Instantiates a new synchronous job handler.
+// New instantiates a new synchronous job handler.
 func New() *JobHandler {
 	return &JobHandler{
 		process: func(*job.Job) {},

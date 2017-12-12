@@ -1,6 +1,7 @@
 package job
 
-// Interface and properties of a job transformation and processing abstraction.
+// TransformationHandler defines the interface and properties of a job
+// transformation and processing abstraction.
 //
 // Properties:
 // 	TH1: Guarnteed response

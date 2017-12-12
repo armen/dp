@@ -22,9 +22,9 @@ func TestProcess(t *testing.T) {
 	test.ProcessTest(jt, t)
 }
 
-func TestFailedSecondResponse(t *testing.T) {
+func TestFailedThirdResponseTest(t *testing.T) {
 	jh := sync.New()
 	th := transformation.New(jh, 1)
 
-	test.FailedSecondResponse(jh, th, t)
+	test.FailedThirdResponseTest(jh, th, t)
 }

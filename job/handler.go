@@ -1,10 +1,11 @@
+// Package job implements job handler abstraction.
 package job
 
 import (
 	"github.com/armen/dp"
 )
 
-// Interface and properties of a job handler.
+// Handler defines the interface and properties of a job handler.
 //
 // Properties:
 // 	JH1: Guarnteed response

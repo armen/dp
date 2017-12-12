@@ -12,7 +12,7 @@ func (th *TfmHandler) init() {
 	th.buffer = make([]*job.Job, th.bound)
 }
 
-// Submits a job to be processed.
+// Submit submits a job to be processed.
 func (th *TfmHandler) Submit(j *job.Job) {
 	th.mux <- func() {
 		if th.bottom+th.bound == th.top {

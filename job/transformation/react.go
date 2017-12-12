@@ -4,6 +4,7 @@ import (
 	"github.com/armen/dp/job"
 )
 
+// TfmHandler stores the state of job-transformation handler.
 type TfmHandler struct {
 	jh job.Handler
 
@@ -20,7 +21,7 @@ type TfmHandler struct {
 	mux chan func()
 }
 
-// Instantiates a new asynchronous job handler.
+// New instantiates a new asynchronous job handler.
 func New(jh job.Handler, bound int) *TfmHandler {
 	th := &TfmHandler{
 		jh:    jh,

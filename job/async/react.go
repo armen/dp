@@ -4,6 +4,7 @@ import (
 	"github.com/armen/dp/job"
 )
 
+// JobHandler stores the state of an asynchronous job handler.
 type JobHandler struct {
 	confirm func(*job.Job) // Confirm handler
 	process func(*job.Job) // Process handler, to process a job
