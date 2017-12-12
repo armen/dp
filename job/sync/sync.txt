@@ -5,4 +5,4 @@ Implements:
 
 upon event < jh, Submit | job > do
    process(job);
-   trigger < jh, Process | job >;
+   trigger < jh, Confirm | job > ;
