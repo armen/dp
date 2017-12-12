@@ -1,18 +1,20 @@
-package job
+package test
 
 import (
 	"testing"
 	"time"
+
+	"github.com/armen/dp/job"
 )
 
-func GuaranteedResponseTest(jh Handler, t *testing.T) {
-	var c = make(chan *Job)
-	jh.Confirm(func(j *Job) {
+func GuaranteedResponseTest(jh job.Handler, t *testing.T) {
+	var c = make(chan *job.Job)
+	jh.Confirm(func(j *job.Job) {
 		c <- j
 	})
 	go jh.React()
 
-	jh.Submit(&Job{Id: 1, Payload: []byte("payload")})
+	jh.Submit(&job.Job{Id: 1, Payload: []byte("payload")})
 
 	select {
 	case j := <-c:
@@ -24,16 +26,16 @@ func GuaranteedResponseTest(jh Handler, t *testing.T) {
 	}
 }
 
-func ProcessTest(jh Handler, t *testing.T) {
-	var p = make(chan *Job)
-	jh.Process(func(j *Job) {
+func ProcessTest(jh job.Handler, t *testing.T) {
+	var p = make(chan *job.Job)
+	jh.Process(func(j *job.Job) {
 		p <- j
 	})
 
-	jh.Confirm(func(*Job) {})
+	jh.Confirm(func(*job.Job) {})
 	go jh.React()
 
-	jh.Submit(&Job{Id: 1, Payload: []byte("payload")})
+	jh.Submit(&job.Job{Id: 1, Payload: []byte("payload")})
 
 	select {
 	case j := <-p:
@@ -45,30 +47,30 @@ func ProcessTest(jh Handler, t *testing.T) {
 	}
 }
 
-func FailedSecondResponse(jh Handler, th TransformationHandler, t *testing.T) {
-	var c = make(chan *Job)
+func FailedSecondResponse(jh job.Handler, th job.TransformationHandler, t *testing.T) {
+	var c = make(chan *job.Job)
 	var processing = make(chan struct{})
 	var wait = make(chan struct{})
 
-	jh.Process(func(*Job) {
+	jh.Process(func(*job.Job) {
 		// Signal that we started processing
 		processing <- struct{}{}
 		// Don't rush on processing
 		<-wait
 	})
 
-	th.Confirm(func(*Job) {}) // Confirm is already tested
-	th.Error(func(j *Job) {
+	th.Confirm(func(*job.Job) {}) // Confirm is already tested
+	th.Error(func(j *job.Job) {
 		c <- j
 	})
 	go th.React()
 
-	th.Submit(&Job{Id: 1, Payload: []byte("payload 1")})
+	th.Submit(&job.Job{Id: 1, Payload: []byte("payload 1")})
 	// Wait until the first submission started processing then submit two
 	// more jobs, the latter should not be processed
 	<-processing
-	th.Submit(&Job{Id: 2, Payload: []byte("payload 2")})
-	th.Submit(&Job{Id: 3, Payload: []byte("payload 3")})
+	th.Submit(&job.Job{Id: 2, Payload: []byte("payload 2")})
+	th.Submit(&job.Job{Id: 3, Payload: []byte("payload 3")})
 
 	select {
 	case j := <-c:
