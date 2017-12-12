@@ -4,7 +4,7 @@ import (
 	"github.com/armen/dp/job"
 )
 
-type tfmHandler struct {
+type TfmHandler struct {
 	jh job.Handler
 
 	buffer   []*job.Job // Buffer
@@ -21,8 +21,8 @@ type tfmHandler struct {
 }
 
 // Instantiates a new asynchronous job handler.
-func New(jh job.Handler, bound int) *tfmHandler {
-	th := &tfmHandler{
+func New(jh job.Handler, bound int) *TfmHandler {
+	th := &TfmHandler{
 		jh:    jh,
 		bound: bound,
 		mux:   make(chan func()),
@@ -34,22 +34,22 @@ func New(jh job.Handler, bound int) *tfmHandler {
 }
 
 // Confirm registers the confirm handler.
-func (th *tfmHandler) Confirm(f func(*job.Job)) {
+func (th *TfmHandler) Confirm(f func(*job.Job)) {
 	th.confirm = f
 }
 
 // Error registers the error handler.
-func (th *tfmHandler) Error(f func(*job.Job)) {
+func (th *TfmHandler) Error(f func(*job.Job)) {
 	th.error = f
 }
 
 // Process registers the process handler.
-func (th *tfmHandler) Process(f func(*job.Job)) {
+func (th *TfmHandler) Process(f func(*job.Job)) {
 	th.jh.Process(f)
 }
 
 // React mutually executes events.
-func (th *tfmHandler) React() {
+func (th *TfmHandler) React() {
 	th.init()
 	go th.jh.React()
 

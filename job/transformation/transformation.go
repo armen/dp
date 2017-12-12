@@ -5,7 +5,7 @@ import (
 	"github.com/armen/dp/job"
 )
 
-func (th *tfmHandler) init() {
+func (th *TfmHandler) init() {
 	th.top = 0
 	th.bottom = 0
 	th.handling = false
@@ -13,7 +13,7 @@ func (th *tfmHandler) init() {
 }
 
 // Submits a job to be processed.
-func (th *tfmHandler) Submit(j *job.Job) {
+func (th *TfmHandler) Submit(j *job.Job) {
 	th.mux <- func() {
 		if th.bottom+th.bound == th.top {
 			go th.error(j)
@@ -26,13 +26,13 @@ func (th *tfmHandler) Submit(j *job.Job) {
 	}
 }
 
-func (th *tfmHandler) existsJob() {
+func (th *TfmHandler) existsJob() {
 	if th.bottom < th.top && th.handling == false {
 		go th.handleJob()
 	}
 }
 
-func (th *tfmHandler) handleJob() {
+func (th *TfmHandler) handleJob() {
 	th.mux <- func() {
 		j := th.buffer[th.bottom%th.bound]
 		th.bottom++
@@ -41,7 +41,7 @@ func (th *tfmHandler) handleJob() {
 	}
 }
 
-func (th *tfmHandler) jhConfirm(j *job.Job) {
+func (th *TfmHandler) jhConfirm(j *job.Job) {
 	th.mux <- func() {
 		th.handling = false
 	}
