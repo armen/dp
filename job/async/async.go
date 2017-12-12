@@ -5,12 +5,12 @@ import (
 	"github.com/armen/dp/job"
 )
 
-func (jh *jobHandler) init() {
+func (jh *JobHandler) init() {
 	jh.buffer = make([]*job.Job, 0)
 }
 
 // Submits a job to be processed.
-func (jh *jobHandler) Submit(j *job.Job) {
+func (jh *JobHandler) Submit(j *job.Job) {
 	jh.mux <- func() {
 		jh.buffer = append(jh.buffer, j)
 
@@ -18,13 +18,13 @@ func (jh *jobHandler) Submit(j *job.Job) {
 	}
 }
 
-func (jh *jobHandler) existsJob() {
+func (jh *JobHandler) existsJob() {
 	if len(jh.buffer) > 0 {
 		go jh.handleJob()
 	}
 }
 
-func (jh *jobHandler) handleJob() {
+func (jh *JobHandler) handleJob() {
 	jh.mux <- func() {
 		// Select a job
 		j := jh.buffer[0]
