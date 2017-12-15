@@ -5,7 +5,7 @@ import (
 	"github.com/armen/dp"
 )
 
-// Perfect defines the interface and properties of a perfect failure detector.
+// Perfect defines the interface and properties of the perfect failure detector.
 //
 // Properties:
 // 	PFD1: Strong completeness
