@@ -9,10 +9,10 @@ import (
 
 func TestGuaranteedResponse(t *testing.T) {
 	jh := sync.New()
-	test.GuaranteedResponseTest(jh, t)
+	test.GuaranteedResponse(jh, t)
 }
 
 func TestProcess(t *testing.T) {
 	jh := sync.New()
-	test.ProcessTest(jh, t)
+	test.Process(jh, t)
 }

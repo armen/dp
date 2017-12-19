@@ -12,19 +12,19 @@ func TestGuaranteedResponse(t *testing.T) {
 	jh := sync.New()
 	jt := transformation.New(jh, 1)
 
-	test.GuaranteedResponseTest(jt, t)
+	test.GuaranteedResponse(jt, t)
 }
 
 func TestProcess(t *testing.T) {
 	jh := sync.New()
 	jt := transformation.New(jh, 1)
 
-	test.ProcessTest(jt, t)
+	test.Process(jt, t)
 }
 
-func TestFailedThirdResponseTest(t *testing.T) {
+func TestFailedThirdResponse(t *testing.T) {
 	jh := sync.New()
 	th := transformation.New(jh, 1)
 
-	test.FailedThirdResponseTest(jh, th, t)
+	test.FailedThirdResponse(jh, th, t)
 }
