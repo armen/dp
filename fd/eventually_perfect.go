@@ -3,6 +3,7 @@ package fd
 
 import (
 	"github.com/armen/dp"
+	"github.com/armen/dp/link"
 )
 
 // Perfect defines the interface and properties of the eventually perfect
@@ -16,8 +17,8 @@ import (
 // 		- Eventually, no correct process is suspected by any correct process.
 //
 type EventuallyPerfect interface {
-	Suspect(func(*dp.Peer)) // Notifies that process p is suspected to have crashed
-	Restore(func(*dp.Peer)) // Notifies that process p is not suspected anymore
+	Suspect(func(*link.Peer)) // Notifies that process p is suspected to have crashed
+	Restore(func(*link.Peer)) // Notifies that process p is not suspected anymore
 
 	dp.Reactor
 }

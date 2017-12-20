@@ -3,6 +3,7 @@ package fd
 
 import (
 	"github.com/armen/dp"
+	"github.com/armen/dp/link"
 )
 
 // Perfect defines the interface and properties of the perfect failure detector.
@@ -15,7 +16,7 @@ import (
 // 		- If a process p is detected by any process, then p has crashed.
 //
 type Perfect interface {
-	Crash(func(*dp.Peer)) // Detects that process p has crashed
+	Crash(func(*link.Peer)) // Detects that process p has crashed
 
 	dp.Reactor
 }
