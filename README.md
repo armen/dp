@@ -2,7 +2,7 @@
 
 A pure Go implementation of [*Introduction to Reliable and Secure Distributed Programming*][dp] abstractions.
 
-## Example Abstractions
+## Example Algorithm
 
 - Job handler ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/job/handler.go))
 	- Synchronous job handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.txt))
@@ -10,7 +10,7 @@ A pure Go implementation of [*Introduction to Reliable and Secure Distributed Pr
 - Job transformation and processing abstraction ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/job/transformation_handler.go))
 	- Job-Transformation by buffering ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.txt))
 
-## List of Abstractions
+## List of Algorithms
 
 - Perfect point-to-point link ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/link/perfect.go))
 	- TCP based perfect peer-to-peer link ([implementation](https://raw.githubusercontent.com/armen/dp/master/link/tcp/ppp/ppp.go))
