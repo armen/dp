@@ -6,8 +6,8 @@ import (
 	"github.com/armen/dp/link"
 )
 
-// Perfect defines the interface and properties of the eventually perfect
-// failure detector.
+// EventuallyPerfect defines the interface and properties of the eventually
+// perfect failure detector.
 //
 // Properties:
 // 	EPFD1: Strong completeness
