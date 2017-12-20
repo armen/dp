@@ -1,16 +1,20 @@
 # dp [![GoDoc](https://godoc.org/github.com/armen/dp?status.png)](https://godoc.org/github.com/armen/dp) [![Build Status](https://travis-ci.org/armen/dp.svg?branch=master)](https://travis-ci.org/armen/dp) [![codecov](https://codecov.io/gh/armen/dp/branch/master/graph/badge.svg)](https://codecov.io/gh/armen/dp)
 
-<img width="165" src="http://www.distributedprogramming.net/images/cover-5.png" align="right">
+A pure Go implementation of [*Introduction to Reliable and Secure Distributed Programming*][dp] abstractions.
 
-An implementation of [*Introduction to Reliable and Secure Distributed Programming*][dp] algorithms.
+## Example Abstractions
 
-## List of Algorithms
+- Interface and properties of a job handler ([interface](https://raw.githubusercontent.com/armen/dp/master/job/handler.go))
+	- Synchronous Job Handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.txt))
+	- Asynchronous Job Handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/async/async.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/async/async.txt))
+- Interface and properties of a job transformation and processing abstraction ([interface](https://raw.githubusercontent.com/armen/dp/master/job/transformation_handler.go))
+	- Job-Transformation by Buffering ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.txt))
 
-### Chapter 1: Introduction
-- **Module 1.1** Interface and properties of a job handler ([interface](https://raw.githubusercontent.com/armen/dp/master/job/handler.go))
-	- **Algorithm 1.1** Synchronous Job Handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.txt))
-	- **Algorithm 1.2** Asynchronous Job Handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/async/async.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/async/async.txt))
-- **Module 1.2** Interface and properties of a job transformation and processing abstraction ([interface](https://raw.githubusercontent.com/armen/dp/master/job/transformation_handler.go))
-	- **Algorithm 1.3** Job-Transformation by Buffering ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.txt))
+## List of Abstractions
+
+- Interface and properties of a perfect point-to-point links ([interface](https://raw.githubusercontent.com/armen/dp/master/link/perfect.go))
+	- TCP based perfect peer-to-peer link ([implementation](https://raw.githubusercontent.com/armen/dp/master/link/tcp/ppp/ppp.go))
+- Interface and properties of a perfect failure detector ([interface](https://raw.githubusercontent.com/armen/dp/master/fd/perfect.go))
+- Interface and properties of an enevtually perfect failure detector ([interface](https://raw.githubusercontent.com/armen/dp/master/fd/eventually_perfect.go))
 
 [dp]: http://distributedprogramming.net
