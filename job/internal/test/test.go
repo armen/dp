@@ -22,7 +22,7 @@ func GuaranteedResponse(jh job.Handler, t *testing.T) {
 		if j.ID != 1 || string(j.Payload) != "payload" {
 			t.Error("The confirmed job is not the submitted job")
 		}
-	case <-time.After(1 * time.Millisecond):
+	case <-time.After(100 * time.Millisecond):
 		t.Error("Confirm indication is not called")
 	}
 }
@@ -44,7 +44,7 @@ func Process(jh job.Handler, t *testing.T) {
 		if j.ID != 1 || string(j.Payload) != "payload" {
 			t.Error("The processed job is not the submitted job")
 		}
-	case <-time.After(1 * time.Millisecond):
+	case <-time.After(100 * time.Millisecond):
 		t.Error("The job is not processed")
 	}
 }
@@ -80,7 +80,7 @@ func FailedThirdResponse(jh job.Handler, th job.TransformationHandler, t *testin
 		if j.ID != 3 || string(j.Payload) != "payload 3" {
 			t.Error("The failed job is not the submitted job")
 		}
-	case <-time.After(1 * time.Millisecond):
+	case <-time.After(100 * time.Millisecond):
 		t.Error("Error indication is not called")
 	}
 
