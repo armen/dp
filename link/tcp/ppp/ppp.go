@@ -2,8 +2,6 @@
 package ppp
 
 import (
-	"log"
-
 	"github.com/armen/dp/link"
 )
 
@@ -14,22 +12,19 @@ func (p *Ppp) init() {
 }
 
 // Send requests to send message m to process q.
-func (p *Ppp) Send(q link.Peer, m link.Message) {
+func (p *Ppp) Send(q link.Peer, m link.Message) error {
+	result := make(chan error, 1)
 	p.mux <- func() {
 		c, err := p.connect(q)
 		if err != nil {
-			log.Println(err)
-
+			result <- err
 			return
 		}
 
-		err = c.Call("PPP.Recv", &Payload{p.ID(), m}, nil)
-		if err != nil {
-			log.Println(err)
-
-			return
-		}
+		result <- c.Call("PPP.Recv", &Payload{p.ID(), m}, nil)
+		return
 	}
+	return <-result
 }
 
 func (p *Ppp) recv(pl *Payload) {

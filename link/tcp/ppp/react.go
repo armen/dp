@@ -33,12 +33,11 @@ type Ppp struct {
 // New instantiates a new TCP based perfect peer-to-peer link.
 func New(n *link.Node, l net.Listener, keepAlive time.Duration) *Ppp {
 	return &Ppp{
-		nil,
-		keepAlive,
-		make(map[string]*rpc.Client),
-		l,
-		make(chan func()),
-		n,
+		keepAlive: keepAlive,
+		conn:      make(map[string]*rpc.Client),
+		listener:  l,
+		mux:       make(chan func()),
+		Node:      n,
 	}
 }
 

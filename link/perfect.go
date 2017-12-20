@@ -18,7 +18,7 @@ import (
 // 		  previously sent to q by process p.
 //
 type Perfect interface {
-	Send(q Peer, m Message)          // Requests to send message m to process q
+	Send(q Peer, m Message) error    // Requests to send message m to process q
 	Deliver(func(p Peer, m Message)) // Delivers message m sent by process p
 
 	dp.Reactor
