@@ -10,7 +10,7 @@ import (
 
 // Payload wraps the message and the ID of the sender.
 type Payload struct {
-	Src     string
+	ID      string
 	Message link.Message
 }
 

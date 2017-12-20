@@ -29,8 +29,7 @@ func (p *Ppp) Send(q link.Peer, m link.Message) error {
 
 func (p *Ppp) recv(pl *Payload) {
 	p.mux <- func() {
-		peer := link.NewNode(nil)
-		peer.SetID(pl.Src)
+		peer := link.NewNodeWithID(pl.ID)
 
 		go p.deliver(peer, pl.Message)
 	}

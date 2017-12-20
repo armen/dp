@@ -19,28 +19,31 @@ type Node struct {
 
 // NewNode instantiates a new node.
 func NewNode(addr net.Addr) *Node {
-	n := &Node{
+	uid := make([]byte, 16)
+	io.ReadFull(rand.Reader, uid)
+	id := fmt.Sprintf("%X", uid)
+
+	return &Node{
+		id:    id,
 		addr:  addr,
 		isset: make(map[string]bool),
 		peers: make([]Peer, 0),
 	}
+}
 
-	// Generate random uuid
-	uuid := make([]byte, 16)
-	io.ReadFull(rand.Reader, uuid)
-	n.id = fmt.Sprintf("%X", uuid)
-
-	return n
+// NewNodeWithID a new node with ID.
+func NewNodeWithID(id string) *Node {
+	return &Node{
+		id:    id,
+		addr:  &net.TCPAddr{},
+		isset: make(map[string]bool),
+		peers: make([]Peer, 0),
+	}
 }
 
 // ID returns the id of the node.
 func (n *Node) ID() string {
 	return n.id
-}
-
-// SetID rsets the id of the node.
-func (n *Node) SetID(id string) {
-	n.id = id
 }
 
 // Addr returns the network addres of the node.

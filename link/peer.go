@@ -6,8 +6,7 @@ import (
 
 // Peer represents a single node in the cluster.
 type Peer interface {
-	ID() string   // Returns the ID of the peer
-	SetID(string) // Sets the ID of the peer
+	ID() string // Returns the ID of the peer
 
 	Addr() net.Addr // Add returns the network address of the node
 
