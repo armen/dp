@@ -4,17 +4,17 @@ A pure Go implementation of [*Introduction to Reliable and Secure Distributed Pr
 
 ## Example Abstractions
 
-- Interface and properties of a job handler ([interface](https://raw.githubusercontent.com/armen/dp/master/job/handler.go))
-	- Synchronous Job Handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.txt))
-	- Asynchronous Job Handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/async/async.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/async/async.txt))
-- Interface and properties of a job transformation and processing abstraction ([interface](https://raw.githubusercontent.com/armen/dp/master/job/transformation_handler.go))
-	- Job-Transformation by Buffering ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.txt))
+- Job handler ([interface, properties](https://raw.githubusercontent.com/armen/dp/master/job/handler.go))
+	- Synchronous job handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/sync/sync.txt))
+	- Asynchronous job handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/async/async.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/async/async.txt))
+- Job transformation and processing abstraction ([interface, properties](https://raw.githubusercontent.com/armen/dp/master/job/transformation_handler.go))
+	- Job-Transformation by buffering ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/transformation/transformation.txt))
 
 ## List of Abstractions
 
-- Interface and properties of a perfect point-to-point links ([interface](https://raw.githubusercontent.com/armen/dp/master/link/perfect.go))
+- Perfect point-to-point link ([interface, properties](https://raw.githubusercontent.com/armen/dp/master/link/perfect.go))
 	- TCP based perfect peer-to-peer link ([implementation](https://raw.githubusercontent.com/armen/dp/master/link/tcp/ppp/ppp.go))
-- Interface and properties of a perfect failure detector ([interface](https://raw.githubusercontent.com/armen/dp/master/fd/perfect.go))
-- Interface and properties of an enevtually perfect failure detector ([interface](https://raw.githubusercontent.com/armen/dp/master/fd/eventually_perfect.go))
+- Perfect failure detector ([interface, properties](https://raw.githubusercontent.com/armen/dp/master/fd/perfect.go))
+- Eventually perfect failure detector ([interface, properties](https://raw.githubusercontent.com/armen/dp/master/fd/eventually_perfect.go))
 
 [dp]: http://distributedprogramming.net
