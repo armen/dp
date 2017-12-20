@@ -3,6 +3,7 @@ package ppp
 
 import (
 	"github.com/armen/dp/link"
+	"github.com/armen/dp/link/node"
 )
 
 func (p *Ppp) init() {
@@ -29,7 +30,7 @@ func (p *Ppp) Send(q link.Peer, m link.Message) error {
 
 func (p *Ppp) recv(pl *Payload) {
 	p.mux <- func() {
-		peer := link.NewNode(link.WithID(pl.ID))
+		peer := node.New(node.WithID(pl.ID))
 
 		go p.deliver(peer, pl.Message)
 	}
