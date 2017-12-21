@@ -12,9 +12,18 @@ A pure Go implementation of [*Introduction to Reliable and Secure Distributed Pr
 
 ## List of Algorithms
 
+### Link
+
 - Perfect point-to-point link ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/link/perfect.go))
 	- TCP based perfect peer-to-peer link ([implementation](https://raw.githubusercontent.com/armen/dp/master/link/perfect/p2p/p2p.go))
+
+### Failure Detector
+
 - Perfect failure detector ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/fd/perfect.go))
 - Eventually perfect failure detector ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/fd/eventually_perfect.go))
+
+### Broadcast
+
+- Best-Effort broadcast ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/broadcast/besteffort.go))
 
 [dp]: http://distributedprogramming.net
