@@ -25,5 +25,6 @@ A pure Go implementation of [*Introduction to Reliable and Secure Distributed Pr
 ### Broadcast
 
 - Best-Effort broadcast ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/broadcast/besteffort.go))
+	- Basic Broadcast ([implementation](https://raw.githubusercontent.com/armen/dp/master/broadcast/besteffort/beb/beb.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/broadcast/besteffort/beb/beb.txt))
 
 [dp]: http://distributedprogramming.net

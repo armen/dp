@@ -1,0 +1,15 @@
+Algorithm 3.1: Basic Broadcast
+
+Implements:
+    BestEffortBroadcast, instance beb.
+
+Uses:
+    PerfectPointToPointLinks, instance pl.
+
+upon event < beb, Broadcast | m > do
+    forall q ∈ Π do
+    trigger < pl, Send | q, m > ; 
+
+upon event < pl, Deliver | p , m > do
+    trigger < beb, Deliver | p , m > ; 
+
