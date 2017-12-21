@@ -9,11 +9,11 @@ func (th *TfmHandler) init() {
 	th.top = 0
 	th.bottom = 0
 	th.handling = false
-	th.buffer = make([]*job.Job, th.bound)
+	th.buffer = make([]job.Job, th.bound)
 }
 
 // Submit submits a job to be processed.
-func (th *TfmHandler) Submit(j *job.Job) {
+func (th *TfmHandler) Submit(j job.Job) {
 	th.mux <- func() {
 		if th.bottom+th.bound == th.top {
 			go th.error(j)
@@ -41,7 +41,7 @@ func (th *TfmHandler) handleJob() {
 	}
 }
 
-func (th *TfmHandler) jhConfirm(j *job.Job) {
+func (th *TfmHandler) jhConfirm(j job.Job) {
 	th.mux <- func() {
 		th.handling = false
 	}

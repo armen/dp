@@ -6,7 +6,7 @@ import (
 )
 
 // Submit submits a job to be processed.
-func (jh *JobHandler) Submit(j *job.Job) {
+func (jh *JobHandler) Submit(j job.Job) {
 	jh.mux <- func() {
 		jh.process(j)
 

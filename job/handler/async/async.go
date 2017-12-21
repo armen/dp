@@ -6,11 +6,11 @@ import (
 )
 
 func (jh *JobHandler) init() {
-	jh.buffer = make([]*job.Job, 0)
+	jh.buffer = make([]job.Job, 0)
 }
 
 // Submit submits a job to be processed.
-func (jh *JobHandler) Submit(j *job.Job) {
+func (jh *JobHandler) Submit(j job.Job) {
 	jh.mux <- func() {
 		jh.buffer = append(jh.buffer, j)
 

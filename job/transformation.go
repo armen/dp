@@ -10,6 +10,6 @@ package job
 // 		- A submitted job whose transformation fails is not processed
 //
 type TransformationHandler interface {
-	Handler           // Inherits the Submit(...) and Confirm(...) from job.Handler
-	Error(func(*Job)) // Indicates that the transformation of the given job failed
+	Handler          // Inherits the Submit(...) and Confirm(...) from job.Handler
+	Error(func(Job)) // Indicates that the transformation of the given job failed
 }
