@@ -72,3 +72,8 @@ func (n *Node) Addr() net.Addr {
 func (n *Node) Peers() []link.Peer {
 	return n.peers
 }
+
+// Members returns all the members including the current node.
+func (n *Node) Members() []link.Peer {
+	return append(n.peers, n)
+}
