@@ -29,13 +29,7 @@ func WithAddr(addr net.Addr) func(*Node) {
 
 // WithPeer can be used when instantiating a new node (e.g. New(WithPeer(...), ...))
 func WithPeer(p link.Peer) func(*Node) {
-	return func(n *Node) {
-		if n.isset[p.ID()] || p.ID() == n.ID() {
-			return
-		}
-		n.isset[p.ID()] = true
-		n.peers = append(n.peers, p)
-	}
+	return func(n *Node) { n.AddPeer(p) }
 }
 
 // New instantiates a new node.
@@ -76,4 +70,13 @@ func (n *Node) Peers() []link.Peer {
 // Members returns all the members including the current node.
 func (n *Node) Members() []link.Peer {
 	return append(n.peers, n)
+}
+
+// AddPeer adds a new peer to the peers list.
+func (n *Node) AddPeer(p link.Peer) {
+	if n.isset[p.ID()] || p.ID() == n.ID() {
+		return
+	}
+	n.isset[p.ID()] = true
+	n.peers = append(n.peers, p)
 }
