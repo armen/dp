@@ -35,6 +35,7 @@ type Node struct {
 // New instantiates a new TCP based perfect peer-to-peer link.
 func New(node link.Node, l net.Listener, keepAlive time.Duration) *Node {
 	return &Node{
+		deliver:   func(link.Peer, link.Message) {},
 		keepAlive: keepAlive,
 		conn:      make(map[string]*rpc.Client),
 		listener:  l,
