@@ -2,7 +2,7 @@
 
 A pure Go implementation of [*Introduction to Reliable and Secure Distributed Programming*][dp] abstractions.
 
-## Example Algorithm
+## Example Algorithms
 
 - Job handler ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/job/handler.go))
 	- Synchronous job handler ([implementation](https://raw.githubusercontent.com/armen/dp/master/job/handler/sync/sync.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/job/handler/sync/sync.txt))
@@ -13,7 +13,7 @@ A pure Go implementation of [*Introduction to Reliable and Secure Distributed Pr
 ## List of Algorithms
 
 - Perfect point-to-point link ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/link/perfect.go))
-	- TCP based perfect peer-to-peer link ([implementation](https://raw.githubusercontent.com/armen/dp/master/link/tcp/ppp/ppp.go))
+	- TCP based perfect peer-to-peer link ([implementation](https://raw.githubusercontent.com/armen/dp/master/link/perfect/p2p/p2p.go))
 - Perfect failure detector ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/fd/perfect.go))
 - Eventually perfect failure detector ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/fd/eventually_perfect.go))
 

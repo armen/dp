@@ -1,4 +1,4 @@
-package ppp
+package p2p
 
 import (
 	"net"
@@ -6,7 +6,7 @@ import (
 )
 
 type server struct {
-	ppp *Ppp
+	p2p *P2p
 }
 
 func (s *server) serve(l net.Listener, name string) {
@@ -17,7 +17,7 @@ func (s *server) serve(l net.Listener, name string) {
 
 // Recv implements RPC callback to recieve a meesage from a peer.
 func (s *server) Recv(p *Payload, _ *struct{}) error {
-	s.ppp.recv(p)
+	s.p2p.recv(p)
 
 	return nil
 }

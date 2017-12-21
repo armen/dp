@@ -1,4 +1,4 @@
-package ppp
+package p2p
 
 import (
 	"net"
@@ -7,7 +7,7 @@ import (
 	"github.com/armen/dp/link"
 )
 
-func (p *Ppp) connect(q link.Peer) (*rpc.Client, error) {
+func (p *P2p) connect(q link.Peer) (*rpc.Client, error) {
 	// Check if it's already connected
 	if _, ok := p.conn[q.ID()]; ok {
 		return p.conn[q.ID()], nil

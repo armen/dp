@@ -1,19 +1,19 @@
-// Package ppp implements a TCP based perfect peer-to-peer link.
-package ppp
+// Package p2p implements a TCP based perfect peer-to-peer link.
+package p2p
 
 import (
 	"github.com/armen/dp/link"
 	"github.com/armen/dp/link/node"
 )
 
-func (p *Ppp) init() {
-	s := &server{ppp: p}
+func (p *P2p) init() {
+	s := &server{p2p: p}
 
-	go s.serve(p.listener, "PPP")
+	go s.serve(p.listener, "P2P")
 }
 
 // Send requests to send message m to process q.
-func (p *Ppp) Send(q link.Peer, m link.Message) error {
+func (p *P2p) Send(q link.Peer, m link.Message) error {
 	result := make(chan error, 1)
 	p.mux <- func() {
 		c, err := p.connect(q)
@@ -30,13 +30,13 @@ func (p *Ppp) Send(q link.Peer, m link.Message) error {
 			return
 		}
 
-		result <- c.Call("PPP.Recv", &Payload{p.ID(), m}, nil)
+		result <- c.Call("P2P.Recv", &Payload{p.ID(), m}, nil)
 		return
 	}
 	return <-result
 }
 
-func (p *Ppp) recv(pl *Payload) {
+func (p *P2p) recv(pl *Payload) {
 	p.mux <- func() {
 		peer := node.New(node.WithID(pl.ID))
 

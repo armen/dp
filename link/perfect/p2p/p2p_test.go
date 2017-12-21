@@ -1,13 +1,13 @@
-package ppp_test
+package p2p_test
 
 import (
 	"net"
 	"testing"
 	"time"
 
-	"github.com/armen/dp/link/internal/test"
 	"github.com/armen/dp/link/node"
-	"github.com/armen/dp/link/tcp/ppp"
+	"github.com/armen/dp/link/perfect/internal/test"
+	"github.com/armen/dp/link/perfect/p2p"
 )
 
 type badAddr struct{}
@@ -17,24 +17,24 @@ func (_ *badAddr) String() string  { return "bad-addr" }
 
 func TestReliableDelivery(t *testing.T) {
 	l, addr := test.ListenTCP()
-	p := ppp.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
+	p := p2p.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
 
 	l, addr = test.ListenTCP()
-	q := ppp.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
+	q := p2p.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
 
 	test.ReliableDelivery(p, q, t)
 }
 
 func TestSelfDelivery(t *testing.T) {
 	l, addr := test.ListenTCP()
-	p := ppp.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
+	p := p2p.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
 
 	test.SelfDelivery(p, t)
 }
 
 func TestUnresolvableAddr(t *testing.T) {
 	l, _ := test.ListenTCP()
-	p := ppp.New(node.New(node.WithAddr(&badAddr{})), l, 0)
+	p := p2p.New(node.New(node.WithAddr(&badAddr{})), l, 0)
 	go p.React()
 
 	err := p.Send(p, []byte("message"))
@@ -45,7 +45,7 @@ func TestUnresolvableAddr(t *testing.T) {
 
 func TestEmptyAddr(t *testing.T) {
 	l, _ := test.ListenTCP()
-	p := ppp.New(node.New(node.WithAddr(&net.TCPAddr{})), l, 0)
+	p := p2p.New(node.New(node.WithAddr(&net.TCPAddr{})), l, 0)
 	go p.React()
 
 	err := p.Send(p, []byte("message"))

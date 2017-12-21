@@ -1,4 +1,4 @@
-package ppp
+package p2p
 
 import (
 	"net"
@@ -14,8 +14,8 @@ type Payload struct {
 	Message link.Message
 }
 
-// Ppp implements perfect peer-to-peer link.
-type Ppp struct {
+// P2p implements perfect peer-to-peer link.
+type P2p struct {
 	// Deliver handler
 	deliver func(link.Peer, link.Message)
 
@@ -33,8 +33,8 @@ type Ppp struct {
 }
 
 // New instantiates a new TCP based perfect peer-to-peer link.
-func New(node link.Node, l net.Listener, keepAlive time.Duration) *Ppp {
-	return &Ppp{
+func New(node link.Node, l net.Listener, keepAlive time.Duration) *P2p {
+	return &P2p{
 		keepAlive: keepAlive,
 		conn:      make(map[string]*rpc.Client),
 		listener:  l,
@@ -44,12 +44,12 @@ func New(node link.Node, l net.Listener, keepAlive time.Duration) *Ppp {
 }
 
 // Deliver registers the deliver handler.
-func (p *Ppp) Deliver(f func(p link.Peer, m link.Message)) {
+func (p *P2p) Deliver(f func(p link.Peer, m link.Message)) {
 	p.deliver = f
 }
 
 // React mutually executes events.
-func (p *Ppp) React() {
+func (p *P2p) React() {
 	p.init()
 
 	for f := range p.mux {
