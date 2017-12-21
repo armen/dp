@@ -9,7 +9,7 @@ import (
 	"github.com/armen/dp/link"
 )
 
-// Node represents a node in the cluster with it's peers.
+// Node represents a node in the cluster with its peers.
 type Node struct {
 	id    string
 	addr  net.Addr

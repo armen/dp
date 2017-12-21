@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/armen/dp/link"
-	"github.com/armen/dp/link/node"
 )
 
 // Payload wraps the message and the ID of the sender.
@@ -17,7 +16,8 @@ type Payload struct {
 
 // Ppp implements perfect peer-to-peer link.
 type Ppp struct {
-	deliver func(p link.Peer, m link.Message) // Deliver handler
+	// Deliver handler
+	deliver func(link.Peer, link.Message)
 
 	// RPC client keepAlive and connections
 	keepAlive time.Duration
@@ -26,19 +26,20 @@ type Ppp struct {
 	// RPC server's listener
 	listener net.Listener
 
+	// A multiplexer to run events in a mutually exclusive way
 	mux chan func()
 
-	*node.Node
+	link.Node
 }
 
 // New instantiates a new TCP based perfect peer-to-peer link.
-func New(n *node.Node, l net.Listener, keepAlive time.Duration) *Ppp {
+func New(node link.Node, l net.Listener, keepAlive time.Duration) *Ppp {
 	return &Ppp{
 		keepAlive: keepAlive,
 		conn:      make(map[string]*rpc.Client),
 		listener:  l,
 		mux:       make(chan func()),
-		Node:      n,
+		Node:      node,
 	}
 }
 
