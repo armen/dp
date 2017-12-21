@@ -7,10 +7,10 @@ import (
 	"github.com/armen/dp/link"
 )
 
-func (p *P2p) connect(q link.Peer) (*rpc.Client, error) {
+func (n *Node) connect(q link.Peer) (*rpc.Client, error) {
 	// Check if it's already connected
-	if _, ok := p.conn[q.ID()]; ok {
-		return p.conn[q.ID()], nil
+	if _, ok := n.conn[q.ID()]; ok {
+		return n.conn[q.ID()], nil
 	}
 
 	addr, err := net.ResolveTCPAddr(q.Addr().Network(), q.Addr().String())
@@ -24,9 +24,9 @@ func (p *P2p) connect(q link.Peer) (*rpc.Client, error) {
 	}
 
 	c.SetKeepAlive(true)
-	c.SetKeepAlivePeriod(p.keepAlive)
+	c.SetKeepAlivePeriod(n.keepAlive)
 
-	p.conn[q.ID()] = rpc.NewClient(c)
+	n.conn[q.ID()] = rpc.NewClient(c)
 
-	return p.conn[q.ID()], nil
+	return n.conn[q.ID()], nil
 }
