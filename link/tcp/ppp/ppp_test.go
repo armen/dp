@@ -25,6 +25,13 @@ func TestReliableDelivery(t *testing.T) {
 	test.ReliableDelivery(p, q, t)
 }
 
+func TestSelfDelivery(t *testing.T) {
+	l, addr := test.ListenTCP()
+	p := ppp.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
+
+	test.SelfDelivery(p, t)
+}
+
 func TestUnresolvableAddr(t *testing.T) {
 	l, _ := test.ListenTCP()
 	p := ppp.New(node.New(node.WithAddr(&badAddr{})), l, 0)

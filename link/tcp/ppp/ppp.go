@@ -22,6 +22,14 @@ func (p *Ppp) Send(q link.Peer, m link.Message) error {
 			return
 		}
 
+		// Deliver it to ourselves
+		if q.ID() == p.ID() {
+			go p.deliver(p, m)
+
+			result <- nil
+			return
+		}
+
 		result <- c.Call("PPP.Recv", &Payload{p.ID(), m}, nil)
 		return
 	}
