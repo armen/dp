@@ -3,7 +3,7 @@ package async_test
 import (
 	"testing"
 
-	"github.com/armen/dp/job/async"
+	"github.com/armen/dp/job/handler/async"
 	"github.com/armen/dp/job/internal/test"
 )
 
