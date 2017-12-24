@@ -1,10 +1,6 @@
 // Package consensus implements consensus abstraction.
 package consensus
 
-import (
-	"github.com/armen/dp"
-)
-
 // Uniform defines the interface and properties of uniform consensus.
 //
 // Properties:
@@ -14,6 +10,4 @@ import (
 //
 type Uniform interface {
 	Regular
-
-	dp.Reactor
 }
