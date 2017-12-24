@@ -56,7 +56,5 @@ func (th *TfmHandler) React() {
 
 	for f := range th.mux {
 		f()
-
-		th.existsJob()
 	}
 }

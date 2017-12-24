@@ -38,7 +38,5 @@ func (jh *JobHandler) React() {
 
 	for f := range jh.mux {
 		f()
-
-		jh.existsJob()
 	}
 }

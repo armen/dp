@@ -23,17 +23,16 @@ func (th *TfmHandler) Submit(j job.Job) {
 		th.buffer[th.top%th.bound] = j
 		th.top++
 		go th.confirm(j)
-	}
-}
-
-func (th *TfmHandler) existsJob() {
-	if th.bottom < th.top && th.handling == false {
 		go th.handleJob()
 	}
 }
 
 func (th *TfmHandler) handleJob() {
 	th.mux <- func() {
+		if th.bottom >= th.top || th.handling != false {
+			return
+		}
+
 		j := th.buffer[th.bottom%th.bound]
 		th.bottom++
 		th.handling = true

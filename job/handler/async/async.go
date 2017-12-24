@@ -15,17 +15,16 @@ func (jh *JobHandler) Submit(j job.Job) {
 		jh.buffer = append(jh.buffer, j)
 
 		go jh.confirm(j)
-	}
-}
-
-func (jh *JobHandler) existsJob() {
-	if len(jh.buffer) > 0 {
 		go jh.handleJob()
 	}
 }
 
 func (jh *JobHandler) handleJob() {
 	jh.mux <- func() {
+		if len(jh.buffer) == 0 {
+			return
+		}
+
 		// Select a job
 		j := jh.buffer[0]
 
