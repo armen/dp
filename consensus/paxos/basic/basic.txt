@@ -1,0 +1,65 @@
+Algorithm: Repeatable Paxos
+
+Implements:
+    RegularConsensus, instance c.
+
+Uses:
+    BestEffortBroadcast, instnace beb.
+    PerfectPointToPointLinks, instance pp2p.
+
+upon event < c, Init > do
+    decided := false
+    promises := ∅
+    ts := 0                            > Logical clock for Paxos rounds
+    numOfAccepts := 0
+    pv := av := ⊥                      > Propose and Accept Values
+    promBallot := accBallot := (0, 0)
+
+func PROPOSE
+    if ¬decided then
+        ts := ts + 1
+        numOfAccepts := 0
+        promises := ∅
+        trigger < beb, Broadcast | [PREPARE, (ts, RANK(self))] >
+
+upon event < c, Propose | v > do
+    pv := v
+    PROPOSE()
+
+upon event < pp2p, Deliver | p, [PROMISE, b, a, v] > do
+    if (ts, RANK(self)) = b then
+        promises := promises ∪ (a, v)
+        if #promises = (N+1)/2 then
+            (maxBallot, value) := HIGHEST_BY_BALLOT(promises)
+            pv := value if value != ⊥ else pv
+            trigger < beb, Broadcast | [ACCEPT, (ts, RANK(self)), pv] >
+
+upon event < pp2p, Deliver | p, [ACCEPTED, ballot] > do
+    if (ts, RANK(self)) = ballot then
+        numOfAccepts := numOfAccepts + 1
+        if numOfAccepts = (N+1)/2 then
+            trigger < beb, Broadcast | [DECIDED, pv] >
+
+upon event < beb, Deliver | p, [PREPARE, ballot] > do
+    if promBallot < ballot then
+        promBallot := ballot
+        trigger < pp2p, Send | p, [PROMISE, promBallot, accBallot, av] >
+    else
+        trigger < pp2p, Send | p, [NACK, ballot] >
+
+upon event < beb, Deliver | p, [ACCEPT, ballot, v] > do
+    if promBallot <= ballot then
+        promBallot := accBallot := ballot
+        av := v
+        trigger < pp2p, Send | p, [ACCEPTED, ballot] >
+    else
+        trigger < pp2p, Send | p [NACK, ballot] >
+
+upon event < pp2p, Deliver | p, [NACK, ballot] > do
+    if (ts, RANK(self)) = ballot then
+        PROPOSE()
+
+upon event < beb, Deliver | p, [DECIDED, ballot, v] > do
+    if ¬decided then
+        trigger < c, Decide | v >
+        decided := true
