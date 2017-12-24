@@ -4,5 +4,5 @@ Implements:
     JobHandler, instance jh.
 
 upon event < jh, Submit | job > do
-    process(job) ;
-    trigger < jh, Confirm | job > ;
+    process(job)
+    trigger < jh, Confirm | job >

@@ -6,25 +6,25 @@ Implements:
 Uses:
 	JobHandler, instance jh.
 
-upon event < th, Init > do 
-	top := 1 ;
-	bottom := 1 ;
-	handling := FALSE ;
-	buffer := [⊥] M ;
+upon event < th, Init > do
+	top := 1
+	bottom := 1
+	handling := FALSE
+	buffer := [⊥] M
 
 upon event < th, Submit | job > do
-	if bottom + M = top then 
-		trigger < th, Error | job > ;
+	if bottom + M = top then
+		trigger < th, Error | job >
 	else
-		buffer [ top mod M + 1] := job;
-		top := top + 1 ;
-		trigger < th, Confirm | job > ;
+		buffer [ top mod M + 1] := job
+		top := top + 1
+		trigger < th, Confirm | job >
 
 upon bottom < top ∧ handling = FALSE do
-	job := buffer [ bottom mod M + 1] ;
-	bottom := bottom + 1 ;
-	handling := TRUE ;
-	trigger < jh, Submit | job > ;
+	job := buffer [ bottom mod M + 1]
+	bottom := bottom + 1
+	handling := TRUE
+	trigger < jh, Submit | job >
 
 upon event < jh, Confirm | job > do
-	handling := FALSE ;
+	handling := FALSE
