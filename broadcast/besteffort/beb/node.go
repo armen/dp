@@ -6,7 +6,10 @@ import (
 
 // Node implements best-effort broadcast abstraction.
 type Node struct {
-	pl         link.Perfect
+	// Perfect Point-To-Point link
+	pl link.Perfect
+
+	// Deliver handler
 	bebDeliver func(link.Peer, link.Message)
 
 	// A multiplexer to run events in a mutually exclusive way
@@ -15,7 +18,7 @@ type Node struct {
 	link.Node
 }
 
-// New instantiates
+// New instantiates a basic-broadcast node.
 func New(pl link.Perfect) *Node {
 	n := &Node{
 		pl:         pl,
