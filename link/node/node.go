@@ -80,3 +80,8 @@ func (n *Node) AddPeer(p link.Peer) {
 	n.isset[p.ID()] = true
 	n.peers = append(n.peers, p)
 }
+
+// N returns total number of nodes in the cluster.
+func (n *Node) N() int {
+	return len(n.peers) + 1
+}
