@@ -6,8 +6,9 @@ import (
 
 // Ballot is a Paxos ballot containing a logical clock and the process id.
 type Ballot struct {
-	Ts  uint64 // Timestamp
-	Pid string // Process id
+	Ts    uint64      // Timestamp
+	Pid   string      // Process id
+	Value interface{} // The associated value
 }
 
 // String returns string representation of a ballot.
