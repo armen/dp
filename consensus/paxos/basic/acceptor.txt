@@ -1,0 +1,28 @@
+Algorithm: Repeatable Paxos (Acceptor)
+
+Implements:
+    RegularConsensus, instance c.
+
+Uses:
+    BestEffortBroadcast, instnace beb.
+    PerfectPointToPointLinks, instance pp2p.
+
+upon event < beb, Deliver | p, [PREPARE, ballot] > do
+    if promBallot < ballot then
+        promBallot := ballot
+        trigger < pp2p, Send | p, [PROMISE, promBallot, accBallot, av] >
+    else
+        trigger < pp2p, Send | p, [NACK, ballot] >
+
+upon event < beb, Deliver | p, [ACCEPT, ballot, v] > do
+    if promBallot <= ballot then
+        promBallot := accBallot := ballot
+        av := v
+        trigger < pp2p, Send | p, [ACCEPTED, ballot] >
+    else
+        trigger < pp2p, Send | p [NACK, ballot] >
+
+upon event < beb, Deliver | p, [DECIDED, ballot, v] > do
+    if ¬decided then
+        trigger < c, Decide | v >
+        decided := true
