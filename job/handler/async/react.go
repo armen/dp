@@ -16,10 +16,16 @@ type JobHandler struct {
 
 // New instantiates a new asynchronous job handler.
 func New() *JobHandler {
-	return &JobHandler{
+	jh := &JobHandler{
+		confirm: func(job.Job) {},
 		process: func(job.Job) {},
 		mux:     make(chan func()),
 	}
+
+	jh.init()
+	go jh.react()
+
+	return jh
 }
 
 // Confirm registers the confirm handler.
@@ -32,10 +38,8 @@ func (jh *JobHandler) Process(f func(job.Job)) {
 	jh.process = f
 }
 
-// React mutually executes events.
-func (jh *JobHandler) React() {
-	jh.init()
-
+// react mutually executes events.
+func (jh *JobHandler) react() {
 	for f := range jh.mux {
 		f()
 	}

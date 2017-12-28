@@ -1,10 +1,6 @@
 // Package job implements job handler abstraction.
 package job
 
-import (
-	"github.com/armen/dp"
-)
-
 // Handler defines the interface and properties of a job handler.
 //
 // Properties:
@@ -15,6 +11,4 @@ type Handler interface {
 	Submit(Job)        // Requests a job to be processed
 	Confirm(func(Job)) // Confirms that the given job has been (or will be) processed
 	Process(func(Job)) // Processes a job
-
-	dp.Reactor
 }

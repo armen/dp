@@ -13,7 +13,6 @@ func GuaranteedResponse(jh job.Handler, t *testing.T) {
 	jh.Confirm(func(j job.Job) {
 		c <- j
 	})
-	go jh.React()
 
 	jh.Submit("job1")
 
@@ -35,7 +34,6 @@ func Process(jh job.Handler, t *testing.T) {
 	})
 
 	jh.Confirm(func(job.Job) {})
-	go jh.React()
 
 	jh.Submit("job1")
 
@@ -66,7 +64,6 @@ func FailedThirdResponse(jh job.Handler, th job.TransformationHandler, t *testin
 	th.Error(func(j job.Job) {
 		c <- j
 	})
-	go th.React()
 
 	th.Submit("job1")
 	// Wait until the first submission started processing then submit two

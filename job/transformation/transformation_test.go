@@ -55,7 +55,6 @@ func Example() {
 	th.Error(func(j job.Job) {
 		msg <- fmt.Sprintln("Failed to execute", j)
 	})
-	go th.React()
 
 	th.Submit("Job 1")
 	<-processing

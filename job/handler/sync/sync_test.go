@@ -26,7 +26,6 @@ func Example() {
 	jh.Confirm(func(j job.Job) {
 		msg <- fmt.Sprintln("Confirmed", j)
 	})
-	go jh.React()
 
 	jh.Submit("Job 1")
 	jh.Submit("Job 2")

@@ -5,11 +5,13 @@ import (
 	"github.com/armen/dp/job"
 )
 
-func (th *TfmHandler) init() {
+func (th *TfmHandler) init(jh job.Handler) {
 	th.top = 0
 	th.bottom = 0
 	th.handling = false
 	th.buffer = make([]job.Job, th.bound)
+
+	jh.Confirm(th.jhConfirm)
 }
 
 // Submit submits a job to be processed.
