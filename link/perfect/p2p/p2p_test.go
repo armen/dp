@@ -35,7 +35,6 @@ func TestSelfDelivery(t *testing.T) {
 func TestUnresolvableAddr(t *testing.T) {
 	l, _ := test.ListenTCP()
 	p := p2p.New(node.New(node.WithAddr(&badAddr{})), l, 0)
-	go p.React()
 
 	err := p.Send(p, []byte("message"))
 	if _, ok := err.(*net.AddrError); !ok {
@@ -46,7 +45,6 @@ func TestUnresolvableAddr(t *testing.T) {
 func TestEmptyAddr(t *testing.T) {
 	l, _ := test.ListenTCP()
 	p := p2p.New(node.New(node.WithAddr(&net.TCPAddr{})), l, 0)
-	go p.React()
 
 	err := p.Send(p, []byte("message"))
 	if e, ok := err.(*net.OpError); !ok || e.Op != "dial" {

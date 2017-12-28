@@ -34,7 +34,7 @@ type Node struct {
 
 // New instantiates a new TCP based perfect peer-to-peer link.
 func New(node link.Node, l net.Listener, keepAlive time.Duration) *Node {
-	return &Node{
+	n := &Node{
 		deliver:   func(link.Peer, link.Message) {},
 		keepAlive: keepAlive,
 		conn:      make(map[string]*rpc.Client),
@@ -42,6 +42,10 @@ func New(node link.Node, l net.Listener, keepAlive time.Duration) *Node {
 		mux:       make(chan func()),
 		Node:      node,
 	}
+
+	go n.react()
+
+	return n
 }
 
 // Deliver registers the deliver handler.
@@ -49,8 +53,8 @@ func (n *Node) Deliver(f func(p link.Peer, m link.Message)) {
 	n.deliver = f
 }
 
-// React mutually executes events.
-func (n *Node) React() {
+// react mutually executes events.
+func (n *Node) react() {
 	n.init()
 
 	for f := range n.mux {

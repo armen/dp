@@ -28,9 +28,6 @@ func ReliableDelivery(ppp link.Perfect, qqq link.Perfect, t *testing.T) {
 		done <- struct{}{}
 	})
 
-	go ppp.React()
-	go qqq.React()
-
 	ppp.Send(q, []byte("Hello"))
 
 	select {
@@ -56,8 +53,6 @@ func SelfDelivery(ppp link.Perfect, t *testing.T) {
 
 		done <- struct{}{}
 	})
-
-	go ppp.React()
 
 	ppp.Send(p, []byte("Hello Self"))
 
