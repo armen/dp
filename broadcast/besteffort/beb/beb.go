@@ -5,6 +5,11 @@ import (
 	"github.com/armen/dp/link"
 )
 
+func (n *Node) init(pl link.Perfect) {
+	// Register our plDeliver handler
+	pl.Deliver(n.plDeliver)
+}
+
 // Broadcast broadcasts a message m to all processes
 func (n *Node) Broadcast(m link.Message) {
 	n.mux <- func() {

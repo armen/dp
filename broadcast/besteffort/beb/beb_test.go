@@ -45,9 +45,6 @@ func TestValidity(t *testing.T) {
 	b1.Deliver(deliver)
 	b2.Deliver(deliver)
 
-	go b1.React()
-	go b2.React()
-
 	b1.Broadcast("Hello from b1")
 
 	// We're expecting two deliveries, one to the self, and the other to the peer

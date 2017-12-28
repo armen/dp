@@ -2,7 +2,6 @@
 package broadcast
 
 import (
-	"github.com/armen/dp"
 	"github.com/armen/dp/link"
 )
 
@@ -21,6 +20,4 @@ import (
 type BestEffort interface {
 	Broadcast(m link.Message)                  // Broadcasts a message m to all processes
 	Deliver(func(p link.Peer, m link.Message)) // Delivers a message m broadcast by process p
-
-	dp.Reactor
 }

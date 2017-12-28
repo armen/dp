@@ -27,8 +27,8 @@ func New(pl link.Perfect) *Node {
 		Node:       pl.(link.Node),
 	}
 
-	// Register our plDeliver handler
-	pl.Deliver(n.plDeliver)
+	n.init(pl)
+	go n.react()
 
 	return n
 }
@@ -38,11 +38,8 @@ func (n *Node) Deliver(f func(link.Peer, link.Message)) {
 	n.bebDeliver = f
 }
 
-// React mutually executes events.
-func (n *Node) React() {
-	go n.pl.React()
-
-	// Mutually exclusive execution of closures
+// react mutually executes events.
+func (n *Node) react() {
 	for f := range n.mux {
 		f()
 	}
