@@ -2,7 +2,6 @@
 package fd
 
 import (
-	"github.com/armen/dp"
 	"github.com/armen/dp/link"
 )
 
@@ -17,6 +16,4 @@ import (
 //
 type Perfect interface {
 	Crash(func(link.Peer)) // Detects that process p has crashed
-
-	dp.Reactor
 }

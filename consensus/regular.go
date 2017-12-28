@@ -1,10 +1,6 @@
 // Package consensus implements consensus abstraction.
 package consensus
 
-import (
-	"github.com/armen/dp"
-)
-
 // Regular defines the interface and properties of (regular) consensus.
 //
 // Properties:
@@ -20,6 +16,4 @@ import (
 type Regular interface {
 	Propose(v interface{})      // Proposes value v for consensus
 	Decide(func(v interface{})) // Outputs a decided value v of consensus
-
-	dp.Reactor
 }

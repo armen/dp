@@ -2,7 +2,6 @@
 package fd
 
 import (
-	"github.com/armen/dp"
 	"github.com/armen/dp/link"
 )
 
@@ -19,6 +18,4 @@ import (
 type EventuallyPerfect interface {
 	Suspect(func(link.Peer)) // Notifies that process p is suspected to have crashed
 	Restore(func(link.Peer)) // Notifies that process p is not suspected anymore
-
-	dp.Reactor
 }
