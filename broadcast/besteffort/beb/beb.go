@@ -14,7 +14,7 @@ func (n *Node) init() {
 func (n *Node) Broadcast(m link.Message) {
 	n.mux <- func() {
 		for _, q := range n.Members() {
-			n.pl.Send(q, m)
+			go n.pl.Send(q, m)
 		}
 	}
 }
