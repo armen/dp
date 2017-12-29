@@ -5,9 +5,9 @@ import (
 	"github.com/armen/dp/link"
 )
 
-func (n *Node) init(pl link.Perfect) {
+func (n *Node) init() {
 	// Register our plDeliver handler
-	pl.Deliver(n.plDeliver)
+	n.pl.Deliver(n.plDeliver)
 }
 
 // Broadcast broadcasts a message m to all processes

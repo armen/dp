@@ -27,7 +27,7 @@ func New(pl link.Perfect) *Node {
 		Node:       pl.(link.Node),
 	}
 
-	n.init(pl)
+	n.init()
 	go n.react()
 
 	return n

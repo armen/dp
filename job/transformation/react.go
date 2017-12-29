@@ -31,7 +31,7 @@ func New(jh job.Handler, bound int) *TfmHandler {
 		mux:     make(chan func()),
 	}
 
-	th.init(jh)
+	th.init()
 	go th.react()
 
 	return th
