@@ -28,7 +28,10 @@ func ReliableDelivery(ppp link.Perfect, qqq link.Perfect, t *testing.T) {
 		done <- struct{}{}
 	})
 
-	ppp.Send(q, []byte("Hello"))
+	err := ppp.Send(q, []byte("Hello"))
+	if err != nil {
+		t.Error(err)
+	}
 
 	select {
 	case <-done:
@@ -54,7 +57,10 @@ func SelfDelivery(ppp link.Perfect, t *testing.T) {
 		done <- struct{}{}
 	})
 
-	ppp.Send(p, []byte("Hello Self"))
+	err := ppp.Send(p, []byte("Hello Self"))
+	if err != nil {
+		t.Error(err)
+	}
 
 	select {
 	case <-done:
