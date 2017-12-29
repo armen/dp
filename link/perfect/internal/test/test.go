@@ -1,8 +1,6 @@
 package test
 
 import (
-	"log"
-	"net"
 	"testing"
 	"time"
 
@@ -67,14 +65,4 @@ func SelfDelivery(ppp link.Perfect, t *testing.T) {
 	case <-time.After(100 * time.Millisecond):
 		t.Error("The message not delivered")
 	}
-}
-
-// ListenTCP creates a listener for testing.
-func ListenTCP() (net.Listener, net.Addr) {
-	l, e := net.Listen("tcp", "127.0.0.1:0") // any available address
-	if e != nil {
-		log.Fatalf("net.Listen tcp :0: %v", e)
-	}
-
-	return l, l.Addr()
 }

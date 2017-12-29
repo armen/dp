@@ -3,7 +3,6 @@ package p2p_test
 import (
 	"net"
 	"testing"
-	"time"
 
 	"github.com/armen/dp/link/node"
 	"github.com/armen/dp/link/perfect/internal/test"
@@ -16,37 +15,35 @@ func (_ *badAddr) Network() string { return "tcp" }
 func (_ *badAddr) String() string  { return "bad-addr" }
 
 func TestReliableDelivery(t *testing.T) {
-	l, addr := test.ListenTCP()
-	p := p2p.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
-
-	l, addr = test.ListenTCP()
-	q := p2p.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
+	p := p2p.New(p2p.WithDefault)
+	q := p2p.New(p2p.WithDefault)
 
 	test.ReliableDelivery(p, q, t)
 }
 
 func TestSelfDelivery(t *testing.T) {
-	l, addr := test.ListenTCP()
-	p := p2p.New(node.New(node.WithAddr(addr)), l, 1*time.Second)
+	p := p2p.New(p2p.WithDefault)
 
 	test.SelfDelivery(p, t)
 }
 
 func TestUnresolvableAddr(t *testing.T) {
-	l, _ := test.ListenTCP()
-	p := p2p.New(node.New(node.WithAddr(&badAddr{})), l, 0)
+	n := node.New(node.WithDefault)
+	p := p2p.New(p2p.WithNode(n))
+	q := node.NewPeer("bad", &badAddr{})
 
-	err := p.Send(p, []byte("message"))
+	err := p.Send(q, []byte("message"))
 	if _, ok := err.(*net.AddrError); !ok {
-		t.Error("expected net.AddrError")
+		t.Error("expected net.AddrError", err, n.Addr())
 	}
 }
 
 func TestEmptyAddr(t *testing.T) {
-	l, _ := test.ListenTCP()
-	p := p2p.New(node.New(node.WithAddr(&net.TCPAddr{})), l, 0)
+	n := node.New(node.WithDefault)
+	p := p2p.New(p2p.WithNode(n))
+	q := node.NewPeer("bad", &net.TCPAddr{})
 
-	err := p.Send(p, []byte("message"))
+	err := p.Send(q, []byte("message"))
 	if e, ok := err.(*net.OpError); !ok || e.Op != "dial" {
 		t.Error("expected dial error")
 	}

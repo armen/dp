@@ -7,30 +7,30 @@ import (
 )
 
 func (n *Node) init() {
-	s := &server{node: n}
+	s := &server{n}
 
-	go s.serve(n.listener, "p2p")
+	go s.serve(n.channel)
 }
 
 // Send requests to send message m to process q.
 func (n *Node) Send(q link.Peer, m link.Message) error {
 	result := make(chan error, 1)
 	n.mux <- func() {
+		// Deliver it to ourselves
+		if q.ID() == n.ID() {
+			go n.deliver(n.Node.(link.Peer), m)
+
+			result <- nil
+			return
+		}
+
 		c, err := n.connect(q)
 		if err != nil {
 			result <- err
 			return
 		}
 
-		// Deliver it to ourselves
-		if q.ID() == n.ID() {
-			go n.deliver(n, m)
-
-			result <- nil
-			return
-		}
-
-		result <- c.Call("p2p.Recv", &Payload{n.ID(), m}, nil)
+		result <- c.Call(n.channel+".Recv", &Payload{n.ID(), n.Addr(), m}, nil)
 		return
 	}
 	return <-result
@@ -38,8 +38,7 @@ func (n *Node) Send(q link.Peer, m link.Message) error {
 
 func (n *Node) recv(pl *Payload) {
 	n.mux <- func() {
-		peer := node.New(node.WithID(pl.ID))
-
+		peer := node.NewPeer(pl.ID, pl.Addr)
 		go n.deliver(peer, pl.Message)
 	}
 }
