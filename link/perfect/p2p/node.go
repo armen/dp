@@ -43,6 +43,7 @@ func New(node link.Node, l net.Listener, keepAlive time.Duration) *Node {
 		Node:      node,
 	}
 
+	n.init()
 	go n.react()
 
 	return n
@@ -55,8 +56,6 @@ func (n *Node) Deliver(f func(p link.Peer, m link.Message)) {
 
 // react mutually executes events.
 func (n *Node) react() {
-	n.init()
-
 	for f := range n.mux {
 		f()
 	}
