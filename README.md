@@ -31,7 +31,8 @@ A pure Go implementation of [*Introduction to Reliable and Secure Distributed Pr
 
 - Regular Consensus ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/consensus/regular.go))
 - Uniform Consensus ([interface and properties](https://raw.githubusercontent.com/armen/dp/master/consensus/uniform.go))
-	- Basic Paxos ([proposer](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/proposer.go), [acceptor](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/acceptor.go), [proposer algorithm](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/proposer.txt), [acceptor algorithm](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/acceptor.txt))
+	- Single Decree Paxos Proposer ([implementation](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/proposer.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/proposer.txt), [acceptor algorithm](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/acceptor.txt))
+	- Single Decree Paxos Acceptor ([implementation](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/acceptor.go), [algorithm](https://raw.githubusercontent.com/armen/dp/master/consensus/paxos/basic/acceptor.txt))
 
 ## Notes
 
