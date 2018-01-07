@@ -1,3 +1,4 @@
+// Package test implements perfect link end to end tests.
 package test
 
 import (

@@ -1,4 +1,4 @@
-// Package sync implements job.Handler interface
+// Package sync implements job.Handler interface.
 package sync
 
 import (

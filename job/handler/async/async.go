@@ -1,4 +1,4 @@
-// Package async implements job.Handler interface
+// Package async implements job.Handler interface.
 package async
 
 import (

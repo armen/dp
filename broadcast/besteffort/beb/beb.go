@@ -1,4 +1,4 @@
-// Package beb implements the broadcast.BestEffort interface (Basic Broadcast)
+// Package beb implements the broadcast.BestEffort interface (Basic Broadcast).
 package beb
 
 import (

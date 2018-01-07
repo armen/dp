@@ -1,3 +1,4 @@
+// Package basic implements single decree paxos algorithm.
 package basic
 
 import (

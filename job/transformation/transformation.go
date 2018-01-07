@@ -1,4 +1,4 @@
-// Package transformation implements Job-Transformation by buffering
+// Package transformation implements Job-Transformation by buffering.
 package transformation
 
 import (

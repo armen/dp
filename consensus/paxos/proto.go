@@ -1,3 +1,4 @@
+// Package paxos implements different variants of paxos algorithm.
 package paxos
 
 import (
