@@ -6,7 +6,7 @@ import (
 
 	"github.com/armen/dp/job"
 	"github.com/armen/dp/job/handler/async"
-	"github.com/armen/dp/job/internal/test"
+	"github.com/armen/dp/job/internal/handler/test"
 )
 
 func TestGuaranteedResponse(t *testing.T) {

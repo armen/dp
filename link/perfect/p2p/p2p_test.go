@@ -4,8 +4,8 @@ import (
 	"net"
 	"testing"
 
+	"github.com/armen/dp/link/internal/perfect/test"
 	"github.com/armen/dp/link/node"
-	"github.com/armen/dp/link/perfect/internal/test"
 	"github.com/armen/dp/link/perfect/p2p"
 )
 

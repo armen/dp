@@ -6,7 +6,7 @@ import (
 
 	"github.com/armen/dp/job"
 	jh "github.com/armen/dp/job/handler/sync"
-	"github.com/armen/dp/job/internal/test"
+	"github.com/armen/dp/job/internal/transformation/test"
 	"github.com/armen/dp/job/transformation"
 )
 
