@@ -1,3 +1,4 @@
+// Package node implements link.Node and link.Peer interfaces.
 package node
 
 import (
