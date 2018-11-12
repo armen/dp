@@ -9,6 +9,7 @@ func (n *Node) initAcc() {
 	n.decided = false
 	n.promBallot = &paxos.Ballot{}
 	n.accBallot = &paxos.Ballot{}
+	n.accVal = nil
 
 	// Setup the beb.Deliver event dispatcher
 	n.beb.Deliver(func(p link.Peer, m link.Message) {
@@ -17,9 +18,9 @@ func (n *Node) initAcc() {
 			case paxos.Prepare:
 				n.prepare(p, msg.Ballot)
 			case paxos.Accept:
-				n.accept(p, msg.Ballot)
+				n.accept(p, msg.Ballot, msg.Val)
 			case paxos.Decided:
-				n.decide(msg.Ballot)
+				n.decide(msg.Ballot, msg.Val)
 			}
 		}
 	})
@@ -28,7 +29,7 @@ func (n *Node) initAcc() {
 func (n *Node) prepare(p link.Peer, ballot *paxos.Ballot) {
 	if n.promBallot.Less(ballot) {
 		n.promBallot = ballot
-		go n.pp2p.Send(p, paxos.Promise{ballot, n.accBallot})
+		go n.pp2p.Send(p, paxos.Promise{ballot, n.accBallot, n.accVal})
 
 		return
 	}
@@ -36,11 +37,12 @@ func (n *Node) prepare(p link.Peer, ballot *paxos.Ballot) {
 	go n.pp2p.Send(p, paxos.Nack{ballot})
 }
 
-func (n *Node) accept(p link.Peer, ballot *paxos.Ballot) {
+func (n *Node) accept(p link.Peer, ballot *paxos.Ballot, val interface{}) {
 	if n.promBallot.Less(ballot) || n.promBallot.Equals(ballot) {
 		n.promBallot = ballot
 		n.accBallot = ballot
-		go n.pp2p.Send(p, paxos.Accepted{ballot})
+		n.accVal = val
+		go n.pp2p.Send(p, paxos.Accepted{ballot, val})
 
 		return
 	}
@@ -48,11 +50,11 @@ func (n *Node) accept(p link.Peer, ballot *paxos.Ballot) {
 	go n.pp2p.Send(p, paxos.Nack{ballot})
 }
 
-func (n *Node) decide(ballot *paxos.Ballot) {
+func (n *Node) decide(ballot *paxos.Ballot, val interface{}) {
 	if n.decided {
 		return
 	}
 
-	go n.paxosDecide(ballot.Value)
+	go n.paxosDecide(val)
 	n.decided = true
 }

@@ -16,14 +16,17 @@ type Node struct {
 	beb broadcast.BestEffort
 
 	// Decide handler
-	paxosDecide  func(v interface{})
-	decided      bool
-	promises     paxos.Ballots
+	paxosDecide func(v interface{})
+	decided     bool
+	promises    paxos.Ballots
+	vals        map[*paxos.Ballot]interface{}
+
 	ts           uint64        // Logical clock fo Paxos rounds
 	numOfAccepts int           // Number of accepts
-	pv           interface{}   // Promissed value
+	propVal      interface{}   // Promissed value
 	promBallot   *paxos.Ballot // Promissed ballot
 	accBallot    *paxos.Ballot // Accepted ballot
+	accVal       interface{}
 
 	// A multiplexer to run events in a mutually exclusive way
 	mux chan func()
@@ -36,6 +39,7 @@ func New(pp2p link.Perfect, beb broadcast.BestEffort) *Node {
 	n := &Node{
 		pp2p:        pp2p,
 		beb:         beb,
+		vals:        make(map[*paxos.Ballot]interface{}),
 		paxosDecide: func(interface{}) {},
 		mux:         make(chan func()),
 		Node:        beb.(link.Node),

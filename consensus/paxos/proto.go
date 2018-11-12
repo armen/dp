@@ -24,21 +24,25 @@ type Prepare struct {
 type Promise struct {
 	Ballot   *Ballot
 	Accepted *Ballot
+	Val      interface{} // The associated value
 }
 
 // Accept request
 type Accept struct {
 	Ballot *Ballot
+	Val    interface{} // The associated value
 }
 
 // Accepted response to an Accept request
 type Accepted struct {
 	Ballot *Ballot
+	Val    interface{} // The associated value
 }
 
 // Decided message to broadcast the decided value
 type Decided struct {
 	Ballot *Ballot
+	Val    interface{} // The associated value
 }
 
 // Nack is a NotOK acknowledgement

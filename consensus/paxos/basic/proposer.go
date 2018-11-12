@@ -11,9 +11,9 @@ func (n *Node) initProp() {
 		n.mux <- func() {
 			switch msg := m.(type) {
 			case paxos.Promise:
-				n.promise(msg.Ballot, msg.Accepted)
+				n.promise(msg.Ballot, msg.Accepted, msg.Val)
 			case paxos.Accepted:
-				n.accepted(msg.Ballot)
+				n.accepted(msg.Ballot, msg.Val)
 			case paxos.Nack:
 				n.nack(msg.Ballot)
 			}
@@ -29,23 +29,25 @@ func (n *Node) propose() {
 	n.ts++
 	n.numOfAccepts = 0
 	n.promises = nil
+	n.vals = make(map[*paxos.Ballot]interface{})
 
-	go n.beb.Broadcast(paxos.Prepare{&paxos.Ballot{n.ts, n.ID(), nil}})
+	go n.beb.Broadcast(paxos.Prepare{&paxos.Ballot{n.ts, n.ID()}})
 }
 
 // Propose proposes value v for consensus
 func (n *Node) Propose(v interface{}) {
 	n.mux <- func() {
-		n.pv = v
+		n.propVal = v
 		n.propose()
 	}
 }
 
-func (n *Node) promise(ballot *paxos.Ballot, accepted *paxos.Ballot) {
+func (n *Node) promise(ballot *paxos.Ballot, accepted *paxos.Ballot, val interface{}) {
 	if ballot.Ts != n.ts || ballot.Pid != n.ID() {
 		return
 	}
 
+	n.vals[accepted] = val
 	n.promises = append(n.promises, accepted)
 
 	if len(n.promises) != (n.N()+1)/2 {
@@ -53,14 +55,14 @@ func (n *Node) promise(ballot *paxos.Ballot, accepted *paxos.Ballot) {
 	}
 
 	maxBallot := n.promises[0]
-	if maxBallot.Value != nil {
-		n.pv = maxBallot.Value
+	if val, ok := n.vals[maxBallot]; ok && val != nil {
+		n.propVal = val
 	}
 
-	go n.beb.Broadcast(paxos.Accept{&paxos.Ballot{n.ts, n.ID(), n.pv}})
+	go n.beb.Broadcast(paxos.Accept{&paxos.Ballot{n.ts, n.ID()}, n.propVal})
 }
 
-func (n *Node) accepted(ballot *paxos.Ballot) {
+func (n *Node) accepted(ballot *paxos.Ballot, val interface{}) {
 	if ballot.Ts != n.ts || ballot.Pid != n.ID() {
 		return
 	}
@@ -70,7 +72,7 @@ func (n *Node) accepted(ballot *paxos.Ballot) {
 		return
 	}
 
-	go n.beb.Broadcast(paxos.Decided{ballot})
+	go n.beb.Broadcast(paxos.Decided{ballot, val})
 }
 
 func (n *Node) nack(ballot *paxos.Ballot) {

@@ -13,10 +13,10 @@ var lesstests = []struct {
 	b2     *paxos.Ballot
 	expect bool
 }{
-	{&paxos.Ballot{1, "abc", "val"}, &paxos.Ballot{2, "def", "val"}, true},
-	{&paxos.Ballot{2, "abc", "val"}, &paxos.Ballot{2, "def", "val"}, true},
-	{&paxos.Ballot{2, "def", "val"}, &paxos.Ballot{2, "abc", "val"}, false},
-	{&paxos.Ballot{1, "abc", "val"}, &paxos.Ballot{1, "abc", "val"}, false},
+	{&paxos.Ballot{1, "abc"}, &paxos.Ballot{2, "def"}, true},
+	{&paxos.Ballot{2, "abc"}, &paxos.Ballot{2, "def"}, true},
+	{&paxos.Ballot{2, "def"}, &paxos.Ballot{2, "abc"}, false},
+	{&paxos.Ballot{1, "abc"}, &paxos.Ballot{1, "abc"}, false},
 }
 
 func TestLess(t *testing.T) {
@@ -28,8 +28,8 @@ func TestLess(t *testing.T) {
 }
 
 func TestEquals(t *testing.T) {
-	b1 := &paxos.Ballot{1, "abc", "val"}
-	b2 := &paxos.Ballot{1, "abc", "val"}
+	b1 := &paxos.Ballot{1, "abc"}
+	b2 := &paxos.Ballot{1, "abc"}
 
 	if !b1.Equals(b2) {
 		t.Errorf("want %s == %s", b1, b2)
@@ -38,9 +38,9 @@ func TestEquals(t *testing.T) {
 
 func Example() {
 	ballots := paxos.Ballots{
-		&paxos.Ballot{2, "abc", "val"},
-		&paxos.Ballot{1, "abc", "val"},
-		&paxos.Ballot{2, "def", "val"},
+		&paxos.Ballot{2, "abc"},
+		&paxos.Ballot{1, "abc"},
+		&paxos.Ballot{2, "def"},
 	}
 
 	heap.Init(&ballots)
