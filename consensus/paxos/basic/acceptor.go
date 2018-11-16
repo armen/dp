@@ -16,17 +16,17 @@ func (n *Node) initAcc() {
 		n.mux <- func() {
 			switch msg := m.(type) {
 			case paxos.Prepare:
-				n.prepare(p, msg.Ballot)
+				n.onPrepare(p, msg.Ballot)
 			case paxos.Accept:
-				n.accept(p, msg.Ballot, msg.Val)
+				n.onAccept(p, msg.Ballot, msg.Val)
 			case paxos.Decided:
-				n.decide(msg.Ballot, msg.Val)
+				n.onDecide(msg.Ballot, msg.Val)
 			}
 		}
 	})
 }
 
-func (n *Node) prepare(p link.Peer, ballot *paxos.Ballot) {
+func (n *Node) onPrepare(p link.Peer, ballot *paxos.Ballot) {
 	if n.promBallot.Less(ballot) {
 		n.promBallot = ballot
 		go n.pp2p.Send(p, paxos.Promise{ballot, n.accBallot, n.accVal})
@@ -37,7 +37,7 @@ func (n *Node) prepare(p link.Peer, ballot *paxos.Ballot) {
 	go n.pp2p.Send(p, paxos.Nack{ballot})
 }
 
-func (n *Node) accept(p link.Peer, ballot *paxos.Ballot, val interface{}) {
+func (n *Node) onAccept(p link.Peer, ballot *paxos.Ballot, val interface{}) {
 	if n.promBallot.Less(ballot) || n.promBallot.Equals(ballot) {
 		n.promBallot = ballot
 		n.accBallot = ballot
@@ -50,7 +50,7 @@ func (n *Node) accept(p link.Peer, ballot *paxos.Ballot, val interface{}) {
 	go n.pp2p.Send(p, paxos.Nack{ballot})
 }
 
-func (n *Node) decide(ballot *paxos.Ballot, val interface{}) {
+func (n *Node) onDecide(ballot *paxos.Ballot, val interface{}) {
 	if n.decided {
 		return
 	}

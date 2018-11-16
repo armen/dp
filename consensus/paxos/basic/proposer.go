@@ -11,17 +11,17 @@ func (n *Node) initProp() {
 		n.mux <- func() {
 			switch msg := m.(type) {
 			case paxos.Promise:
-				n.promise(msg.Ballot, msg.Accepted, msg.Val)
+				n.onPromise(msg.Ballot, msg.Accepted, msg.Val)
 			case paxos.Accepted:
-				n.accepted(msg.Ballot, msg.Val)
+				n.onAccepted(msg.Ballot, msg.Val)
 			case paxos.Nack:
-				n.nack(msg.Ballot)
+				n.onNack(msg.Ballot)
 			}
 		}
 	})
 }
 
-func (n *Node) propose() {
+func (n *Node) onPropose() {
 	if n.decided {
 		return
 	}
@@ -38,11 +38,11 @@ func (n *Node) propose() {
 func (n *Node) Propose(v interface{}) {
 	n.mux <- func() {
 		n.propVal = v
-		n.propose()
+		n.onPropose()
 	}
 }
 
-func (n *Node) promise(ballot *paxos.Ballot, accepted *paxos.Ballot, val interface{}) {
+func (n *Node) onPromise(ballot *paxos.Ballot, accepted *paxos.Ballot, val interface{}) {
 	if ballot.Ts != n.ts || ballot.Pid != n.ID() {
 		return
 	}
@@ -62,7 +62,7 @@ func (n *Node) promise(ballot *paxos.Ballot, accepted *paxos.Ballot, val interfa
 	go n.beb.Broadcast(paxos.Accept{&paxos.Ballot{n.ts, n.ID()}, n.propVal})
 }
 
-func (n *Node) accepted(ballot *paxos.Ballot, val interface{}) {
+func (n *Node) onAccepted(ballot *paxos.Ballot, val interface{}) {
 	if ballot.Ts != n.ts || ballot.Pid != n.ID() {
 		return
 	}
@@ -75,8 +75,8 @@ func (n *Node) accepted(ballot *paxos.Ballot, val interface{}) {
 	go n.beb.Broadcast(paxos.Decided{ballot, val})
 }
 
-func (n *Node) nack(ballot *paxos.Ballot) {
+func (n *Node) onNack(ballot *paxos.Ballot) {
 	if ballot.Ts == n.ts && ballot.Pid == n.ID() {
-		n.propose()
+		n.onPropose()
 	}
 }
