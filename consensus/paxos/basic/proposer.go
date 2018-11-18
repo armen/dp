@@ -59,7 +59,8 @@ func (n *Node) onPromise(ballot *paxos.Ballot, accepted *paxos.Ballot, val inter
 		n.propVal = val
 	}
 
-	go n.beb.Broadcast(paxos.Accept{&paxos.Ballot{n.ts, n.ID()}, n.propVal})
+	b := &paxos.Ballot{n.ts, n.ID()}
+	go n.beb.Broadcast(paxos.Accept{b, n.propVal})
 }
 
 func (n *Node) onAccepted(ballot *paxos.Ballot, val interface{}) {
